@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+			
+            
+            <record model="ir.ui.view" id="event_tree_view">
+                <field name="name">event.tree</field>
+                <field name="model">event</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="tree_string">
+                        <field name="name"/>
+                        <field name="owner"/>
+                        <field name="type"/>
+                        <field name="start_time"/>
+                        <field name="end_time"/>
+                        <field name="trainers" nolabel="1"/>
+                        <field name="members"/>
+                        <field name="reserved_resources"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="event_form_view">
+                <field name="name">event.form</field>
+                <field name="model">event</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="form_string">
+                        <field name="name" select="1"/>
+                        <newline/>
+                        <field name="owner"/>
+                        <newline/>
+                        <field name="type"/>
+                        <newline/>
+                        <field name="start_time"/>
+                        <newline/>
+                        <field name="end_time"/>
+                        <group attrs="{'invisible':[('type','!=','training')]}">
+                        <newline/>
+                        	<label string="Trainers" for="trainers"/>
+                        	<field name="trainers" nolabel="1"/>
+                         </group>
+                         <group attrs="{'invisible':[('type','!=','seminar')]}">
+                         <newline/>
+                        	<label string="Speakers" for="trainers"/>
+                        	<field name="trainers" nolabel="1"/>
+                         </group>
+                        <newline/>
+                        <field name="members"/>
+                        <newline/>
+                        <field name="reserved_resources"/>
+                        <newline/>
+                    </form>
+                </field>
+            </record>
+            
+            
+        <record id="event_search_view" model="ir.ui.view">
+          	<field name="name">event.search</field>
+            <field name="model">event</field>
+            <field name="arch" type="xml">
+                <search string="Search Events">
+                <field name="type" string="Event Types" filter_domain="[(1,'=',1)]"/>
+                <separator/>
+                <filter string='Training' name="type" domain="[('type','=','training')]" help="..."/>
+                <filter string='Experiment' name="type" domain="[('type','=','experiment')]" help="..."/>
+                <filter string='Meeting' name="type" domain="[('type','=','meeting')]" help="..."/>
+                <filter string='Entertainment' name="type" domain="[('type','=','entertainment')]" help="..."/>
+                <filter string='Seminar' name="type" domain="[('type','=','seminar')]" help="..."/>
+                
+                 <group expand="0" string="Group By...">
+              		<filter string="Type" domain="[]" context="{'group_by':'type'}"/>
+                 </group>
+  				 </search>
+            </field>
+        </record>
+
+            <record model="ir.actions.act_window" id="action_event_tree_view">
+                <field name="name">event</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">event</field>
+		   <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="context">{"event_search_view":1}</field>
+                <field name="view_id" ref="event_tree_view"/>
+            </record>
+            
+            
+            
+
+			
+
+
+            
+            <record model="ir.ui.view" id="resource_tree_view">
+                <field name="name">resource.tree</field>
+                <field name="model">resource</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="tree_string">
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="reservations"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="resource_form_view">
+                <field name="name">resource.form</field>
+                <field name="model">resource</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="form_string">
+                        <field name="name" select="1"/>
+                        <field name="type"/>
+                        <field name="reservations"/>
+                    </form>
+                </field>
+            </record>
+            
+            <record id="resource_search_view" model="ir.ui.view">
+          	<field name="name">resource.search</field>
+            <field name="model">resource</field>
+            <field name="arch" type="xml">
+                <search string="Search Resources">
+                <field name="type" string="Resource Types" filter_domain="[(1,'=',1)]"/>
+                <separator/>
+                <filter string='Device' name="type" domain="[('type','=','device')]" help="..."/>
+                <filter string='Location' name="type" domain="[('type','=','location')]" help="..."/>
+                <filter string='Book' name="type" domain="[('type','=','book')]" help="..."/>
+                <filter string='Furniture' name="type" domain="[('type','=','furniture')]" help="..."/>
+                
+                 <group expand="0" string="Group By...">
+              		<filter string="Type" domain="[]" context="{'group_by':'type'}"/>
+                 </group>
+  				 </search>
+            </field>
+        </record>
+
+            <record model="ir.actions.act_window" id="action_resource_tree_view">
+                <field name="name">resource</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">resource</field>
+		   <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="context">{"resource_search_view":1}</field>
+                <field name="view_id" ref="resource_tree_view"/>
+            </record>
+            
+            
+            
+            <record model="ir.ui.view" id="reservation_tree_view">
+                <field name="name">reservation.tree</field>
+                <field name="model">reservation</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree string="tree_string">
+                        <field name="resource"/>
+                        <field name="event"/>
+                        <field name="start_time"/>
+                        <field name="end_time"/>
+                    </tree>
+                </field>
+            </record>
+
+            <record model="ir.ui.view" id="reservation_form_view">
+                <field name="name">reservation.form</field>
+                <field name="model">reservation</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="form_string">
+                        <field name="resource"/>
+                        <field name="event"/>
+                        <field name="start_time"/>
+                        <field name="end_time"/>
+                    </form>
+                </field>
+            </record>
+
+            <record model="ir.actions.act_window" id="action_reservation_tree_view">
+                <field name="name">reservation</field>
+                <field name="type">ir.actions.act_window</field>
+                <field name="res_model">reservation</field>
+		   <!-- <field name="domain">[('field_name','condition',criteria)]</field>-->
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="reservation_tree_view"/>
+            </record>
+            
+            
+            
+            
+            
+            <record model="ir.ui.view" id="res_partner_form_view">
+                <field name="name">res_partner.form</field>
+                <field name="model">res_partner</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form string="Partner">
+                        <field name="name" select="1"/>
+                        <field name="is_company"/>
+                        <field name="membership_type"/>
+                        <field name="is_trainer"/>
+                        <field name="event_organizer"/>
+                        <field name="skills"/>
+                    </form>
+                </field>
+            </record>
+            
+            
+
+
+
+<menuitem 
+          name="EduZone" 
+          id="eduzone_menu" 
+          />
+
+<menuitem 
+          name="Models" 
+          parent="eduzone_menu"
+          id="models_menu" 
+
+          />          
+
+        
+        <menuitem id="event_menu" name="Event" parent="models_menu" action="action_event_tree_view"/>
+        
+        
+        <menuitem id="resource_menu"
+        		name="Resource"
+        		parent="models_menu"
+				action="action_resource_tree_view"
+				/>
+				
+				
+		<menuitem id="reservation_menu" name="Reservation" parent="models_menu" action="action_reservation_tree_view"/>
+
+
+</data>
+</openerp>
