@@ -1,5 +1,6 @@
 from openerp.osv import osv, fields
 
+
 class event(osv.Model):
     _name = 'event'
     _columns = {
