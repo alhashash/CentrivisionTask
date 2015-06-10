@@ -7,5 +7,4 @@
 'data': ['eduzone_view.xml'],
 'installable': True,
 'active': True
-
 }

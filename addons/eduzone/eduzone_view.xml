@@ -3,7 +3,6 @@
 <data>
 
 			
-			
             
             <record model="ir.ui.view" id="event_tree_view">
                 <field name="name">event.tree</field>
