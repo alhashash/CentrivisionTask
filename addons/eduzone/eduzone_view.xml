@@ -28,30 +28,27 @@
                 <field name="type">form</field>
                 <field name="arch" type="xml">
                     <form string="form_string">
-                        <field name="name" select="1"/>
-                        <newline/>
-                        <field name="owner"/>
-                        <newline/>
+                    <!-- <group colspan="4">  -->
+                    	<field name="name" select="1"/>
+                        <field name="owner"/>                        
                         <field name="type"/>
-                        <newline/>
-                        <field name="start_time"/>
-                        <newline/>
+                        <field name="members"/>                       
+                        <field name="start_time"/>                        
                         <field name="end_time"/>
-                        <group attrs="{'invisible':[('type','!=','training')]}">
-                        <newline/>
-                        	<label string="Trainers" for="trainers"/>
-                        	<field name="trainers" nolabel="1"/>
-                         </group>
-                         <group attrs="{'invisible':[('type','!=','seminar')]}">
-                         <newline/>
-                        	<label string="Speakers" for="trainers"/>
-                        	<field name="trainers" nolabel="1"/>
-                         </group>
-                        <newline/>
-                        <field name="members"/>
-                        <newline/>
-                        <field name="reserved_resources"/>
-                        <newline/>
+                    <!-- </group>  -->
+                    <group col="1" colspan="1">
+                    <group  attrs="{'invisible':[('type','!=','training')]}" >
+                        <label string="Trainers" for="trainers"/>
+                    </group>
+                    <group  attrs="{'invisible':[('type','!=','seminar')]}" >                         
+                        <label string="Speakers" for="trainers"/>
+                    </group>
+					</group>
+					<group col="1" colspan="3">
+					<field name="trainers" nolabel="1" attrs="{'invisible':[('type','!=','seminar'),('type','!=','training')]}"/>
+                    </group>
+                    
+                    <field name="reserved_resources" colspan="4"/>
                     </form>
                 </field>
             </record>

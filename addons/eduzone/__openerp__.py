@@ -6,5 +6,6 @@
 'depends' : ['base'],
 'data': ['eduzone_view.xml'],
 'installable': True,
-'active': True
+'active': True,
+'auto_install' : False
 }
